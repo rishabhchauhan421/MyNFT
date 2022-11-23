@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Rishabh is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
+    uint256 MAX_SUPPLY = 10000;
 
     Counters.Counter private _tokenIdCounter;
 
@@ -16,6 +17,7 @@ contract Rishabh is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     function safeMint(address to, string memory uri) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
+        require(tokenId<=MAX_SUPPLY,"I am sorry, all the NFT's have been minted!");
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
